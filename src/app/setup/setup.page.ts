@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-setup',
@@ -7,12 +8,15 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./setup.page.scss'],
 })
 export class SetupPage implements OnInit {
-  items!: [];
+  items: any[]=[];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<any>('http://localhost:3000/hw').subscribe({next:value => console.log(value),error:err => console.error(err),complete:() => console.info("ok")});
+    this.http.get<any>(environment.api+'/projects').subscribe({
+      next:value => this.items=value,
+      error:err => console.error(err),
+      complete:() => console.info("ok")});
   }
 
 }
