@@ -19,4 +19,11 @@ export class SetupPage implements OnInit {
       complete:() => console.info("ok")});
   }
 
+  sendTest() {
+    this.http.post(environment.api+'/projects', {name:"rezrezrez"}).subscribe({
+      next:value => console.log(value),
+      error:err => console.error(err),
+      complete:() => console.info("ok")});
+  }
+
 }
