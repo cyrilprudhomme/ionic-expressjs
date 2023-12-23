@@ -8,13 +8,13 @@ import { HttpService } from '../services/http.service';
   styleUrls: ['./setup.page.scss'],
 })
 export class SetupPage implements OnInit {
-  items: any[]=[];
+  settings!: any;
 
   constructor(private http: HttpService) { }
 
   ngOnInit() {
     this.http.getSettings().subscribe({
-      next:value => this.items=value,
+      next:value => this.settings=value[0],
       error:err => console.error(err),
       complete:() => console.info("ok")});
   }

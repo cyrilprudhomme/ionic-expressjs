@@ -50,6 +50,22 @@ app.get("/projects", async function (req, res) {
     await mongoClient.close();
   }
 });
+app.get("/settings", async function (req, res) {
+  try {
+    await mongoClient.connect();
+    const results = await mongoClient
+      .db("app")
+      .collection("settings")
+      .find({})
+      .toArray();
+    res.json(results);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: `${e}` });
+  } finally {
+    await mongoClient.close();
+  }
+});
 
 // LAISSER LE SITE EN DERNIER DANS L'ORDRE DU FICHIER
 app.use(express.static("www"));
